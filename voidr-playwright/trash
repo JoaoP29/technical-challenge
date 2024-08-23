@@ -1,0 +1,13 @@
+    def addItemToCart(self):
+        # selectedItem = random.choice(self.page.get_by_role('button', name='Add to cart'))
+        # self.page.click(f'button[name="add-to-cart-{random.choice("*")}"]')
+        # allItems = self.page.locator("[data-test^='add-to-cart']")
+        # availableItems = allItems.count()
+        # desiredItem = random.choice(range(availableItems))
+        # allItems.nth(desiredItem).click()
+        # Mapeia todos os botões "Add to Cart" na página
+
+    def removeItemFromCart(self):
+        itemsToRemove = self.page.locator("[data-test^='remove']")
+        selectedItem = random.choice(self.page.get_by_test_id(name='remove[.*]'))
+        selectedItem.click()
