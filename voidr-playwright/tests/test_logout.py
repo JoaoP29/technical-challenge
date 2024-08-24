@@ -11,4 +11,3 @@ def test_logout(page):
     logout.logout()
 
     assert page.url == "https://www.saucedemo.com/"
-
