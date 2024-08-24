@@ -14,7 +14,7 @@ class HomePage(BasePage):
             randomButton = random.choice(addToCartButtons)
             randomButton.click()
         else:
-            raise Exception('Nenhum botão "Add to Cart" foi encontrado na página.')
+            raise Exception('No "Add to Cart" button was found.')
 
     def removeItemFromCart(self):
         removeFromCartButtons = self.page.query_selector_all('button[id^="remove-"]')
@@ -23,8 +23,7 @@ class HomePage(BasePage):
             randomButton = random.choice(removeFromCartButtons)
             randomButton.click()
         else:
-            raise Exception('Nenhum botão "Remove" foi encontrado na página.')
-
+            raise Exception('No "Remove" button was found')
     def goToCart(self):
         self.page.goto('https://www.saucedemo.com/cart.html')
 
