@@ -35,7 +35,7 @@ def testFinishOrderWithoutMandatoryFieldsFilled(page):
 
     cartPage = CartPage(page)
     cartPage.checkout()
-    cartPage.fillCheckOutInformation(" ", "", "123")
+    cartPage.fillCheckOutInformation( "", " ", "123")
 
     assert re.search(r'Error:.*', cartPage.getCheckOutErrorMessage(), re.IGNORECASE)
 
