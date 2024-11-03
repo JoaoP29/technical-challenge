@@ -2,7 +2,9 @@
   "name": "playwright-js-voidr",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test tests/"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
