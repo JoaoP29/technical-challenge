@@ -1,0 +1,8 @@
+export const firstNameField = 'input[name="firstName"]'
+export const lastNameField = 'input[name="lastName"]'
+export const postalCodeField = 'input[name="postalCode"]'
+export const continueButton = 'input[type="submit"]'
+export const finishButton = 'button[name="finish"]'
+export const thankYouMessage = 'h2'
+export const checkOutError = 'h3'
+export const checkOutButton = 'button[id="checkout"]'

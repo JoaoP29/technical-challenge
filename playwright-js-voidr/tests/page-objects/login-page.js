@@ -1,24 +1,9 @@
-// loginPage.js
-const BasePage = require('./base-page'); // Certifique-se de que o caminho está correto
-
-class LoginPage extends BasePage {
-  constructor(page) {
-    super(page);
-    this.usernameField = 'input[name="user-name"]';
-    this.passwordField = 'input[name="password"]';
-    this.loginButton = 'input[name="login-button"]';
-    this.errorMessage = 'h3[data-test="error"]';
-  }
-
-  async login(username, password) {
-    await this.page.fill(this.usernameField, username);
-    await this.page.fill(this.passwordField, password);
-    await this.page.click(this.loginButton);
-  }
-
-  async getErrorMessage() {
-    return await this.page.textContent(this.errorMessage);
-  }
-}
-
-module.exports = LoginPage;
+export const usernameField = 'input[name="user-name"]'
+export const passwordField = 'input[name="password"]'
+export const loginButton = 'input[name="login-button"]'
+export const errorMessage = 'h3[data-test="error"]'
+export const standard_user = "standard_user"
+export const locked_out_user = "locked_out_user"
+export const problem_user = "problem_user"
+export const performance_glitch_user = "performance_glitch_user"
+export const password = "secret_sauce"

@@ -5,7 +5,7 @@ class BasePage {
     }
   
     async navigate(url) {
-      await this.page.goto(url);
+      return await this.page.goto(url);
     }
   }
   

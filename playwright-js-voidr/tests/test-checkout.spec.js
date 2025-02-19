@@ -1,8 +1,8 @@
 // checkout.spec.js
 const { test, expect } = require('@playwright/test');
-const LoginPage = require('./page-objects/login-page'); // Certifique-se de que o caminho está correto
-const HomePage = require('./page-objects/home-page'); // Certifique-se de que o caminho está correto
-const CartPage = require('./page-objects/cart-page'); // Certifique-se de que o caminho está correto
+const LoginPage = require('./pages/login-page'); // Certifique-se de que o caminho está correto
+const HomePage = require('./pages/home-page'); // Certifique-se de que o caminho está correto
+const CartPage = require('./pages/cart-page'); // Certifique-se de que o caminho está correto
 
 test('Successful Checkout', async ({ page }) => {
   const loginPage = new LoginPage(page);
