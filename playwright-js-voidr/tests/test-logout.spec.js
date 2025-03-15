@@ -6,7 +6,7 @@ const HomePage = require('./pages/home-page'); // Certifique-se de que o caminho
 test('Logout', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.navigate('https://saucedemo.com');
-  await loginPage.login('standard_user', 'secret_sauce');
+  await loginPage.doLoginStandardUser('standard_user', 'secret_sauce');
 
   const homePage = new HomePage(page);
   await homePage.logout();

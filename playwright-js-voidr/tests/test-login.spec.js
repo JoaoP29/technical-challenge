@@ -1,38 +1,47 @@
 // login.spec.js
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('./fixtures/test-fixture');
 const LoginPage = require('./pages/login-page'); // Certifique-se de que o caminho está correto
 
-test('Go to Home Page Without Login', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.navigate('https://www.saucedemo.com/inventory.html');
-  
-  const errorMessage = await loginPage.getErrorMessage();
-  expect(errorMessage).not.toBeNull(); // Verifica se há uma mensagem de erro ao tentar acessar a página sem login
-});
+test.describe('Login Functionality', () => {
+  test('should block access to home page without login', async ({ loginPage }) => {
+    // Arrange
+    await loginPage.navigate('https://www.saucedemo.com/inventory.html');
+    
+    // Act
+    const errorMessage = await loginPage.getErrorMessage();
+    
+    // Assert
+    expect(errorMessage).not.toBeNull();
+  });
 
-test('Valid Login', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.navigate('https://www.saucedemo.com');
-  await loginPage.login('standard_user', 'secret_sauce');
-  
-  await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); // Verifica se a URL corresponde após login válido
-});
+  test('should allow access with valid credentials', async ({ page, loginPage }) => {
+    // Arrange
+    await loginPage.navigate('https://www.saucedemo.com');
+    
+    // Act
+    await loginPage.doLoginStandardUser('standard_user', 'secret_sauce');
+    
+    // Assert
+    await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+  });
 
-test.describe('Invalid Login Scenarios', () => {
   const invalidCredentials = [
-    { username: 'invalid_user', password: 'secret_sauce' },
-    { username: 'standard_user', password: 'invalid_pass' },
-    { username: 'locked_out_user', password: 'secret_sauce' },
+    { scenario: 'invalid username', username: 'invalid_user', password: 'secret_sauce' },
+    { scenario: 'invalid password', username: 'standard_user', password: 'invalid_pass' },
+    { scenario: 'locked out user', username: 'locked_out_user', password: 'secret_sauce' },
   ];
 
-  for (const creds of invalidCredentials) {
-    test(`Invalid Login with ${creds.username}`, async ({ page }) => {
-      const loginPage = new LoginPage(page);
+  for (const { scenario, username, password } of invalidCredentials) {
+    test(`should show error for ${scenario}`, async ({ loginPage }) => {
+      // Arrange
       await loginPage.navigate('https://www.saucedemo.com');
-      await loginPage.login(creds.username, creds.password);
       
+      // Act
+      await loginPage.doLoginStandardUser(username, password);
+      
+      // Assert
       const errorMessage = await loginPage.getErrorMessage();
-      expect(errorMessage).not.toBeNull(); // Verifica se uma mensagem de erro é exibida para cada combinação inválida
+      expect(errorMessage).not.toBeNull();
     });
   }
 });
