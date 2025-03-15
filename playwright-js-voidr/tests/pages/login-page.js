@@ -17,7 +17,7 @@ class LoginPage extends BasePage {
     super(page);
   }
 
-  async doLoginStandardUser(username, password) {
+  async doLogin(username, password) {
     await this.page.fill(usernameField, username);
     await this.page.fill(passwordField, password);
     await this.page.click(loginButton);

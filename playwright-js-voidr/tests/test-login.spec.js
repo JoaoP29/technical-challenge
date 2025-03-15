@@ -19,7 +19,7 @@ test.describe('Login Functionality', () => {
     await loginPage.navigate('https://www.saucedemo.com');
     
     // Act
-    await loginPage.doLoginStandardUser('standard_user', 'secret_sauce');
+    await loginPage.doLogin('standard_user', 'secret_sauce');
     
     // Assert
     await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
@@ -37,7 +37,7 @@ test.describe('Login Functionality', () => {
       await loginPage.navigate('https://www.saucedemo.com');
       
       // Act
-      await loginPage.doLoginStandardUser(username, password);
+      await loginPage.doLogin(username, password);
       
       // Assert
       const errorMessage = await loginPage.getErrorMessage();

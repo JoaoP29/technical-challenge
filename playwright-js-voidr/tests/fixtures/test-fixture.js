@@ -18,7 +18,7 @@ exports.test = base.test.extend({
   },
   authenticatedPage: async ({ page, loginPage }, use) => {
     await loginPage.navigate('https://saucedemo.com');
-    await loginPage.doLoginStandardUser('standard_user', 'secret_sauce');
+    await loginPage.doLogin('standard_user', 'secret_sauce');
     await use(page);
   }
 });
