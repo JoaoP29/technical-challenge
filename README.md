@@ -1,51 +1,131 @@
 # Automated Testing with Playwright
 ## Overview
-This repository contains an automated test suite using Playwright for the Sauce Demo website. The suite includes tests for login, adding and removing items from the cart, checkout, and logout.
+This repository contains an automated test suite using Playwright for the Sauce Demo website. The suite includes end-to-end tests for login, shopping cart management, and checkout processes, with cross-browser and mobile testing capabilities.
+
+## Features
+- Page Object Model (POM) architecture
+- Cross-browser testing (Chrome, Firefox, Safari)
+- Mobile browser testing (Pixel 5, iPhone 13)
+- Parallel test execution
+- Comprehensive test reporting
+- Screenshot and video capture on failure
+- Trace recording for debugging
+- AAA (Arrange-Act-Assert) pattern implementation
 
 ## Project Structure
-The project follows a page object model architecture to maintain a separation of concerns and make the tests more readable and easier to maintain.
+```
+playwright-js-voidr/
+├── tests/
+│   ├── fixtures/
+│   │   └── test-fixture.js    # Test fixtures and common setup
+│   ├── page-objects/          # Selectors and element definitions
+│   │   ├── cart-pages.js
+│   │   ├── home-page.js
+│   │   └── login-page.js
+│   ├── pages/                 # Page actions and behaviors
+│   │   ├── base-page.js
+│   │   ├── cart-page.js
+│   │   ├── home-page.js
+│   │   └── login-page.js
+│   └── specs/                 # Test specifications
+│       ├── test-checkout.spec.js
+│       ├── test-home-page.spec.js
+│       └── test-login.spec.js
+├── playwright.config.js       # Playwright configuration
+└── package.json              # Project dependencies
+```
 
-### Page Objects
-- base_page.py: Contains the BasePage class, which is inherited by all other pages to provide common functionalities like navigation.
-- cart_page.py: Implements interactions with the checkout page, including filling out checkout information and completing the order.
-- home_page.py: Handles interactions on the home page, such as adding and removing items from the cart and accessing the cart page.
-- login_page.py: Manages login operations, such as filling in the username and password, and checking for error messages.
+## Test Categories
 
-### Tests
-The tests are organized into different files to facilitate maintenance and ensure that each set of features is tested separately.
+### Login Tests
+- Access restriction for unauthenticated users
+- Successful login with valid credentials
+- Various invalid login scenarios
 
-#### Login Tests (test_login.py)
-- testGoToHomePageWithoutLogin: Verifies that an unauthenticated user is properly redirected when trying to access the inventory page without logging in.
-- testValidLogin: Tests if a user with valid credentials can successfully log in.
-- testInvalidLogin: Checks if the system displays appropriate error messages for different combinations of invalid credentials.
+### Shopping Cart Tests
+- Adding items to cart
+- Removing items from cart
+- Cart badge visibility and count
 
-#### Home Page Tests (test_home_page.py)
-- testAddToCart: Tests adding a random item to the cart and verifies that the cart item count is correctly incremented.
-- testRemoveFromCart: Adds an item to the cart and then removes it, verifying that the item count is properly adjusted.
+### Checkout Tests
+- Complete checkout process
+- Form validation
+- Empty cart handling (with documented expected failure)
 
-#### Checkout Tests (test_checkout.py)
-- testCheckOut: Tests the complete checkout flow, from adding items to the cart to completing the order, verifying that a thank you message is displayed.
-- testFinishOrderWithoutMandatoryFieldsFilled: Verifies that the system returns an error message when mandatory checkout fields are not filled out correctly.
-- testCheckOutNoOrder: A planned failure test that checks if the checkout button remains disabled when the cart is empty.
+## Setup and Installation
 
-#### Logout Test (test_logout.py)
-- test_logout: Tests if the logout is executed correctly and if the user is redirected to the login page.
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd playwright-js-voidr
+```
 
-## How to run
-1. Fork project (optional);
-2. Clone repository;
-3. Install requirments:
-   - Python 3.8+;
-   - Playwright;
-   - Pytest.
-4. Run the tests:
-   ```
-   pytest tests/ --headed --slowmo <any number how much slowmo you want>
-   ```
-   The above command will run the tests in "headed" mode (with the browser visible) and with a delay between each interaction to make it easier to observe the application's behavior.
-   
-## Contributions
-Contributions are welcome! Feel free to open issues and pull requests.
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Install Playwright browsers:
+```bash
+npx playwright install
+```
+
+## Running Tests
+
+### Run all tests in all configured browsers:
+```bash
+npx playwright test
+```
+
+### Run tests in a specific browser:
+```bash
+npx playwright test --project=chromium
+npx playwright test --project=firefox
+npx playwright test --project=webkit
+npx playwright test --project=mobile-chrome
+npx playwright test --project=mobile-safari
+```
+
+### Run tests with UI mode:
+```bash
+npx playwright test --ui
+```
+
+### View test report:
+```bash
+npx playwright show-report
+```
+If port 9323 is in use, try:
+```bash
+npx playwright show-report --port 9324
+```
+
+## Debugging
+
+### Run tests in debug mode:
+```bash
+npx playwright test --debug
+```
+
+### View traces for failed tests:
+```bash
+npx playwright show-trace
+```
+
+### Additional Options
+- `--headed`: Run tests in headed mode
+- `--workers=1`: Run tests sequentially
+- `--retries=3`: Retry failed tests up to 3 times
+
+## Test Reports
+The test suite generates comprehensive reports including:
+- HTML report with test results
+- Screenshots of failures
+- Video recordings of failed tests
+- Trace files for debugging
+
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
