@@ -1,18 +1,24 @@
 // homePage.js
-const BasePage = require('./base-page'); // Certifique-se de que o caminho está correto
+const BasePage = require('./base-page');
+const {
+  cartBadge,
+  addToCartButton,
+  removeFromCartButton,
+  sideMenuButton,
+  logoutButton
+} = require('../page-objects/home-page');
 
 class HomePage extends BasePage {
   constructor(page) {
     super(page);
-    this.cartBadge = 'span[class="shopping_cart_badge"]';
   }
 
   async addItemToCart() {
-    await this._clickRandomButton('button[id^="add-to-cart-"]', 'No "Add to Cart" button was found.');
+    await this._clickRandomButton(addToCartButton, 'No "Add to Cart" button was found.');
   }
 
   async removeItemFromCart() {
-    await this._clickRandomButton('button[id^="remove-"]', 'No "Remove" button was found.');
+    await this._clickRandomButton(removeFromCartButton, 'No "Remove" button was found.');
   }
 
   async _clickRandomButton(selector, errorMessage) {
@@ -30,12 +36,12 @@ class HomePage extends BasePage {
   }
 
   async getCartCount() {
-    return await this.page.textContent(this.cartBadge);
+    return await this.page.textContent(cartBadge);
   }
 
   async logout() {
-    await this.page.click('button[id="react-burger-menu-btn"]');
-    await this.page.click('a[id="logout_sidebar_link"]');
+    await this.page.click(sideMenuButton);
+    await this.page.click(logoutButton);
   }
 }
 

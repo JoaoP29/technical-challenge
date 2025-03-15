@@ -1,6 +1,7 @@
 // loginPage.js
-const BasePage = require('./base-page'); // Certifique-se de que o caminho está correto
-import {usernameField,
+const BasePage = require('./base-page');
+const {
+  usernameField,
   passwordField,
   loginButton,
   errorMessage,
@@ -9,7 +10,7 @@ import {usernameField,
   problem_user,
   performance_glitch_user,
   password
-} from '../page-objects/login-page'
+} = require('../page-objects/login-page');
 
 class LoginPage extends BasePage {
   constructor(page) {
